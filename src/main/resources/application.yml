@@ -11,14 +11,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 10
-
-  secondary:
-    datasource:
-      url: ${DBMS_SECONDARY_CONNECTION:jdbc:mysql://localhost:3308/storedb}
-      username: ${DBMS_USERNAME:root}
-      password: ${DBMS_PASSWORD:root}
-      driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
