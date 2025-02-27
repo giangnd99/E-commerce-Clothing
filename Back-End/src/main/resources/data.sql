@@ -32,15 +32,3 @@ INSERT INTO product ( description, image, last_update_time, name, price, publish
                                                                                                                                ( 'Áo thun form rộng, họa tiết nổi bật', 'https://res.cloudinary.com/dpbysnmcc/image/upload/df1d90cd-e1f8-4b36-8a50-4b0090b37905_ao-polo-icondenim-pattern-vertical-stripes-n-25__1__2b449346a8d3464f990e4c8dadd0d11c_master.jpg?_a=DAGAACAVZAA0', '2025-02-19', 'Áo thun họa tiết', 319000, '2025-02-14', 60, 'M', 1);
 
 
--- Dữ liệu cho bảng cart_item (10 bản ghi)
-INSERT INTO cart_item (amount, price, quantity, product_id, user_id) VALUES
-                                                                         (500000, 250000, 2, 1, 1),
-                                                                         (230000, 230000, 1, 2, 2),
-                                                                         (450000, 450000, 1, 3, 3),
-                                                                         (940000, 470000, 2, 4, 4),
-                                                                         (1200000, 1200000, 1, 5, 5),
-                                                                         (1300000, 1300000, 1, 6, 6),
-                                                                         (220000, 220000, 1, 7, 7),
-                                                                         (500000, 500000, 1, 8, 8),
-                                                                         (1100000, 1100000, 1, 9, 9),
-                                                                         (520000, 260000, 2, 10, 10);

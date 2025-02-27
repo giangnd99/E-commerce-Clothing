@@ -1,0 +1,89 @@
+version: '3.8'
+
+networks:
+  store-network:
+    driver: bridge
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: unless-stopped
+    networks:
+      - store-network
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: storedb
+      MYSQL_USER: store_user
+      MYSQL_PASSWORD: store_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 3
+      start_period: 30s
+
+  redis:
+    image: redis:alpine
+    container_name: redis-cache
+    restart: unless-stopped
+    networks:
+      - store-network
+    ports:
+      - "6379:6379"
+
+  store-app:
+    build:
+      context: ./Back-End
+      dockerfile: Dockerfile
+    container_name: store-app
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - store-network
+    environment:
+      DBMS_USERNAME: store_user
+      DBMS_PASSWORD: store_pass
+      DBMS_CONNECTION: jdbc:mysql://db:3306/storedb?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      OAUTH2_GOOGLE_REDIRECT_URI: http://localhost:5173/login-success
+      PAYMENT_VNPAY_RETURNURL: http://localhost:5173/order/list
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  client:
+    build:
+      context: ./Front-End/client
+      dockerfile: Dockerfile
+    container_name: client-app
+    networks:
+      - store-network
+    ports:
+      - "5173:5173"
+    depends_on:
+      - store-app
+    restart: unless-stopped
+
+  admin:
+    build:
+      context: ./Front-End/admin
+      dockerfile: Dockerfile
+    container_name: admin-app
+    networks:
+      - store-network
+    ports:
+      - "5174:5173"
+    depends_on:
+      - store-app
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
