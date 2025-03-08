@@ -11,7 +11,6 @@ import org.mapstruct.MappingTarget;
 public interface CartItemMapper {
 
     CartItem toCartItem(CartItemRequest request);
-
     @Mapping(target = "userId", source = "user.id")
     @Mapping(target = "productId" ,source = "product.id")
     CartItemResponse toCartItemResponse(CartItem cartItem);

@@ -1,8 +1,8 @@
 package com.springboot.asm.fpoly_asm_springboot.controller;
 
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.OrderDetailRepository;
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.ProductOrderRepository;
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.UserRepository;
+import com.springboot.asm.fpoly_asm_springboot.repository.primary.OrderDetailRepository;
+import com.springboot.asm.fpoly_asm_springboot.repository.primary.ProductOrderRepository;
+import com.springboot.asm.fpoly_asm_springboot.repository.primary.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

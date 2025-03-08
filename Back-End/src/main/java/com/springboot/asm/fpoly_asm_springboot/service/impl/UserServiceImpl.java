@@ -8,7 +8,7 @@ import com.springboot.asm.fpoly_asm_springboot.entity.User;
 import com.springboot.asm.fpoly_asm_springboot.exception.AppException;
 import com.springboot.asm.fpoly_asm_springboot.exception.ErrorCode;
 import com.springboot.asm.fpoly_asm_springboot.mapper.UserMapper;
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.UserRepository;
+import com.springboot.asm.fpoly_asm_springboot.repository.primary.UserRepository;
 import com.springboot.asm.fpoly_asm_springboot.service.UploadImageFileService;
 import com.springboot.asm.fpoly_asm_springboot.service.UserService;
 import com.springboot.asm.fpoly_asm_springboot.util.PageUtil;
@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UploadImageFileService uploadImageFileService;
     private final PageUtil pageUtil;
-
 
     @Override
     public UserResponse createUser(UserCreationRequest request) {
@@ -77,11 +76,6 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         return userMapper.toUserResponse(user);
-    }
-
-    @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
     }
 
     @Override
@@ -156,4 +150,5 @@ public class UserServiceImpl implements UserService {
 
         } else throw new AppException(ErrorCode.PASSWORD_INVALID);
     }
+
 }

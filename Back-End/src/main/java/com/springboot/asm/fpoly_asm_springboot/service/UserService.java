@@ -21,12 +21,11 @@ public interface UserService {
 
     UserResponse getMyInfo();
 
-    User findByEmail(String email);
-
     void deleteUser(Integer userId);
 
     void uploadAvatar(Integer userId,MultipartFile file);
 
     void updatePassword(String email, String newPassword);
+
 }
 

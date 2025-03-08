@@ -80,28 +80,14 @@ public class SecurityConfig {
 
         httpSecurity.oauth2Login(oauth2 -> oauth2
                 .successHandler((request, response, authentication) -> {
-
-                    OAuth2User user = (OAuth2User) authentication.getPrincipal();
-
-                    User userResponse = authenticationService.getOrCreateUser(
-                            User.builder()
-                                    .email(user.getAttribute("email"))
-                                    .fullName(user.getAttribute("name"))
-                                    .avatar(user.getAttribute("picture"))
-                                    .build());
-
-                    request.getSession().setAttribute("userInfo", userResponse);
-
-
                     response.sendRedirect("http://localhost:5173/login-success");
-
                 })
         );
 
         httpSecurity.oauth2ResourceServer(oauth2 ->
                 oauth2.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())
                         .jwtAuthenticationConverter(jwtAuthenticationConverter())));
-
+//Để mở cors
         httpSecurity.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .oauth2Login(Customizer.withDefaults());

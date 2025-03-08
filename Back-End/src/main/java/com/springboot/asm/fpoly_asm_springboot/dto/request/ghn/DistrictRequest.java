@@ -1,4 +1,4 @@
-package com.springboot.asm.fpoly_asm_springboot.dto.response.GHN;
+package com.springboot.asm.fpoly_asm_springboot.dto.request.ghn;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -11,9 +11,6 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProvinceResponse {
-
+public class DistrictRequest {
     Integer province_id;
-    String province_name;
-    String province_code;
 }

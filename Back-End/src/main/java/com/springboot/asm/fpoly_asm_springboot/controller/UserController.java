@@ -5,6 +5,7 @@ import com.springboot.asm.fpoly_asm_springboot.dto.request.UserCreationRequest;
 import com.springboot.asm.fpoly_asm_springboot.dto.request.UserUpdatedRequest;
 import com.springboot.asm.fpoly_asm_springboot.dto.response.UserResponse;
 import com.springboot.asm.fpoly_asm_springboot.service.UserService;
+import com.springboot.asm.fpoly_asm_springboot.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserService userService ;
 
     @PostMapping
     ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request) {

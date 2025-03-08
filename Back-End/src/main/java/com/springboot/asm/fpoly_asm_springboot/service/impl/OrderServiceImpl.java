@@ -8,9 +8,9 @@ import com.springboot.asm.fpoly_asm_springboot.entity.User;
 import com.springboot.asm.fpoly_asm_springboot.exception.AppException;
 import com.springboot.asm.fpoly_asm_springboot.exception.ErrorCode;
 import com.springboot.asm.fpoly_asm_springboot.mapper.OrderProductMapper;
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.ProductOrderRepository;
+import com.springboot.asm.fpoly_asm_springboot.repository.primary.ProductOrderRepository;
 
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.UserRepository;
+import com.springboot.asm.fpoly_asm_springboot.repository.primary.UserRepository;
 import com.springboot.asm.fpoly_asm_springboot.service.OrderService;
 import com.springboot.asm.fpoly_asm_springboot.util.PageUtil;
 import lombok.RequiredArgsConstructor;

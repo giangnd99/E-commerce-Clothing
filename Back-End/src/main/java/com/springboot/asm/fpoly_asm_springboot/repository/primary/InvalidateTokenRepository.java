@@ -1,4 +1,4 @@
-package com.springboot.asm.fpoly_asm_springboot.repositories.primary;
+package com.springboot.asm.fpoly_asm_springboot.repository.primary;
 
 import com.springboot.asm.fpoly_asm_springboot.entity.InvalidatedToken;
 import org.springframework.data.jpa.repository.JpaRepository;

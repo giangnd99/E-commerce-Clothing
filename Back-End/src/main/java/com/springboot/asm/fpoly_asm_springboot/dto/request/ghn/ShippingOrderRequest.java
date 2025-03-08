@@ -1,11 +1,9 @@
-package com.springboot.asm.fpoly_asm_springboot.dto.request.GHN;
+package com.springboot.asm.fpoly_asm_springboot.dto.request.ghn;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.math.BigDecimal;
 
 @Getter
 @Setter
