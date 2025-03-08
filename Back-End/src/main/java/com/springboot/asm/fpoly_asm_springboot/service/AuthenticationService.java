@@ -8,6 +8,8 @@ import com.springboot.asm.fpoly_asm_springboot.dto.request.LogoutRequest;
 import com.springboot.asm.fpoly_asm_springboot.dto.request.RefreshRequest;
 import com.springboot.asm.fpoly_asm_springboot.dto.response.AuthenticationResponse;
 import com.springboot.asm.fpoly_asm_springboot.dto.response.IntrospectResponse;
+import com.springboot.asm.fpoly_asm_springboot.dto.response.UserGGResponse;
+import com.springboot.asm.fpoly_asm_springboot.dto.response.google.OutboundUserResponse;
 import com.springboot.asm.fpoly_asm_springboot.entity.User;
 
 import java.text.ParseException;
@@ -20,7 +22,7 @@ public interface AuthenticationService {
 
     IntrospectResponse introspect(IntrospectRequest token) throws JOSEException, ParseException;
 
-    User getOrCreateUser(User user);
+    UserGGResponse getOrCreateUser(OutboundUserResponse user);
 
     User getOrCreateUser(String email);
 

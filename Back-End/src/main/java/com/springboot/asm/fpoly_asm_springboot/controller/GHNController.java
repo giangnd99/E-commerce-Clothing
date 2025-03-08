@@ -1,12 +1,12 @@
 package com.springboot.asm.fpoly_asm_springboot.controller;
 
 import com.springboot.asm.fpoly_asm_springboot.dto.request.ApiResponse;
-import com.springboot.asm.fpoly_asm_springboot.dto.request.GHN.DistrictRequest;
-import com.springboot.asm.fpoly_asm_springboot.dto.request.GHN.ShippingMethodRequest;
-import com.springboot.asm.fpoly_asm_springboot.dto.request.GHN.ShippingOrderRequest;
-import com.springboot.asm.fpoly_asm_springboot.dto.request.GHN.WardRequest;
-import com.springboot.asm.fpoly_asm_springboot.dto.response.GHN.*;
-import com.springboot.asm.fpoly_asm_springboot.service.GHNService;
+import com.springboot.asm.fpoly_asm_springboot.dto.request.ghn.DistrictRequest;
+import com.springboot.asm.fpoly_asm_springboot.dto.request.ghn.ShippingMethodRequest;
+import com.springboot.asm.fpoly_asm_springboot.dto.request.ghn.ShippingOrderRequest;
+import com.springboot.asm.fpoly_asm_springboot.dto.request.ghn.WardRequest;
+import com.springboot.asm.fpoly_asm_springboot.dto.response.ghn.*;
+import com.springboot.asm.fpoly_asm_springboot.service.GhnService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GHNController {
 
-    private final GHNService ghnService;
+    private final GhnService ghnService;
 
     @GetMapping("/provinces")
     public ApiResponse<List<ProvinceResponse>> getProvinces() {

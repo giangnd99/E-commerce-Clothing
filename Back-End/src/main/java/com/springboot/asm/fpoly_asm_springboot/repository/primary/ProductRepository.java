@@ -1,4 +1,4 @@
-package com.springboot.asm.fpoly_asm_springboot.repositories.primary;
+package com.springboot.asm.fpoly_asm_springboot.repository.primary;
 
 import com.springboot.asm.fpoly_asm_springboot.entity.Product;
 import org.springframework.data.domain.Page;

@@ -9,6 +9,7 @@ public class Google {
     public static final String REDIRECT_URI = "http://localhost:5173/login-success";
     public static final String TOKEN_URL = "https://oauth2.googleapis.com/token";
     public static final String USER_INFO_URL = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json";
+    public static final String GRANT_TYPE = "authorization_code";
 
     private Google() {
     }

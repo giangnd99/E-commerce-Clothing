@@ -9,6 +9,7 @@ import com.springboot.asm.fpoly_asm_springboot.dto.request.IntrospectRequest;
 import com.springboot.asm.fpoly_asm_springboot.dto.response.AuthenticationResponse;
 import com.springboot.asm.fpoly_asm_springboot.dto.response.IntrospectResponse;
 
+import com.springboot.asm.fpoly_asm_springboot.dto.response.UserGGResponse;
 import com.springboot.asm.fpoly_asm_springboot.entity.User;
 import com.springboot.asm.fpoly_asm_springboot.service.*;
 import lombok.RequiredArgsConstructor;
@@ -69,51 +70,28 @@ public class AuthenticationController {
     }
 
     @PostMapping("/callback")
-    public ResponseEntity<?> handleGoogleCallback(@RequestBody Map<String, String> requestData) {
+    public ApiResponse<?> handleGoogleCallback(@RequestBody Map<String, String> requestData) {
         String code = requestData.get("code");
 
         if (code == null) {
-            return ResponseEntity.badRequest().body("Lỗi: Không tìm thấy mã code!");
+            return ApiResponse.<String>builder()
+                    .code(900)
+                    .message("Lỗi: Không tìm thấy mã code!")
+                    .build();
         }
 
         try {
-            String accessToken = googleService.getAccessToken(code);
+            UserGGResponse user = googleService.getUserResponse(code);
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("Authorization", "Bearer " + accessToken);
-            HttpEntity<String> userEntity = new HttpEntity<>(headers);
-
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<Map> userInfoResponse = restTemplate.exchange(
-                    "https://www.googleapis.com/oauth2/v3/userinfo",
-                    HttpMethod.GET,
-                    userEntity,
-                    Map.class
-            );
-            Map<String, Object> userInfo = userInfoResponse.getBody();
-            if (userInfo == null) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi lấy thông tin user");
-            }
-
-            User userGG = User.builder()
-                    .email((String) userInfo.get("email"))
-                    .fullName((String) userInfo.get("name"))
-                    .avatar((String) userInfo.get("picture"))
-                    .phone((String) userInfo.get("phone"))
-                    .role(Role.USER)
+            return ApiResponse.<String>builder()
+                    .result(user.getToken())
                     .build();
 
-            String jwtToken = authenticationService.generateToken(authenticationService.getOrCreateUser(userGG));
-
-            Map<String, Object> response = new HashMap<>();
-            response.put("google_access_token", accessToken);
-            response.put("jwt_token", jwtToken);
-            response.put("user_info", userInfo);
-
-            return ResponseEntity.ok(response);
-
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi xử lý OAuth2: " + e.getMessage());
+            return ApiResponse.<String>builder()
+                    .code(901)
+                    .message("Lỗi: Không tìm được người dùng từ Google API!")
+                    .build();
         }
     }
 }

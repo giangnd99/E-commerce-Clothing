@@ -7,9 +7,9 @@ import com.springboot.asm.fpoly_asm_springboot.entity.Product;
 import com.springboot.asm.fpoly_asm_springboot.entity.Review;
 import com.springboot.asm.fpoly_asm_springboot.entity.User;
 import com.springboot.asm.fpoly_asm_springboot.mapper.ReviewMapper;
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.ProductRepository;
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.ReviewRepository;
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.UserRepository;
+import com.springboot.asm.fpoly_asm_springboot.repository.primary.ProductRepository;
+import com.springboot.asm.fpoly_asm_springboot.repository.primary.ReviewRepository;
+import com.springboot.asm.fpoly_asm_springboot.repository.primary.UserRepository;
 import com.springboot.asm.fpoly_asm_springboot.service.ReviewService;
 import com.springboot.asm.fpoly_asm_springboot.util.PageUtil;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

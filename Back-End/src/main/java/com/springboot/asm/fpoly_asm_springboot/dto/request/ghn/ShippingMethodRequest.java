@@ -1,4 +1,4 @@
-package com.springboot.asm.fpoly_asm_springboot.dto.request.GHN;
+package com.springboot.asm.fpoly_asm_springboot.dto.request.ghn;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.springboot.asm.fpoly_asm_springboot.constant.GHN;

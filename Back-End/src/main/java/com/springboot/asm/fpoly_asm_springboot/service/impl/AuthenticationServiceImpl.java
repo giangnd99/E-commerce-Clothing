@@ -13,13 +13,14 @@ import com.springboot.asm.fpoly_asm_springboot.dto.request.RefreshRequest;
 import com.springboot.asm.fpoly_asm_springboot.dto.response.AuthenticationResponse;
 import com.springboot.asm.fpoly_asm_springboot.dto.response.IntrospectResponse;
 import com.springboot.asm.fpoly_asm_springboot.dto.response.UserGGResponse;
+import com.springboot.asm.fpoly_asm_springboot.dto.response.google.OutboundUserResponse;
 import com.springboot.asm.fpoly_asm_springboot.entity.InvalidatedToken;
 import com.springboot.asm.fpoly_asm_springboot.entity.User;
 import com.springboot.asm.fpoly_asm_springboot.exception.AppException;
 import com.springboot.asm.fpoly_asm_springboot.exception.ErrorCode;
 import com.springboot.asm.fpoly_asm_springboot.mapper.UserMapper;
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.InvalidateTokenRepository;
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.UserRepository;
+import com.springboot.asm.fpoly_asm_springboot.repository.primary.InvalidateTokenRepository;
+import com.springboot.asm.fpoly_asm_springboot.repository.primary.UserRepository;
 import com.springboot.asm.fpoly_asm_springboot.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.NonFinal;
@@ -218,7 +219,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 
     @Override
-    public User getOrCreateUser(User user) {
+    public UserGGResponse getOrCreateUser(OutboundUserResponse user) {
 
         User userOauth2 = userRepository.findByEmail(user.getEmail())
                 .orElseGet(() -> {
@@ -231,7 +232,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
                     newUser.setRole(Role.USER);
 
-                    newUser.setAvatar(user.getAvatar());
+                    newUser.setAvatar(user.getPicture());
 
                     return userRepository.save(newUser);
                 });
@@ -246,7 +247,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         userResponse.setToken(generateToken(userOauth2));
 
-        return userOauth2;
+        return userResponse;
     }
 
     @Override

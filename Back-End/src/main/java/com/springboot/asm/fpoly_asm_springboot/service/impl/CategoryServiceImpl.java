@@ -6,16 +6,14 @@ import com.springboot.asm.fpoly_asm_springboot.entity.Category;
 import com.springboot.asm.fpoly_asm_springboot.exception.AppException;
 import com.springboot.asm.fpoly_asm_springboot.exception.ErrorCode;
 import com.springboot.asm.fpoly_asm_springboot.mapper.CategoryMapper;
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.CategoryRepository;
+import com.springboot.asm.fpoly_asm_springboot.repository.primary.CategoryRepository;
 import com.springboot.asm.fpoly_asm_springboot.service.CategoryService;
 import com.springboot.asm.fpoly_asm_springboot.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 

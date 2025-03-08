@@ -1,25 +1,15 @@
 package com.springboot.asm.fpoly_asm_springboot.config;
 
 import com.springboot.asm.fpoly_asm_springboot.constant.Role;
-import com.springboot.asm.fpoly_asm_springboot.entity.Product;
 import com.springboot.asm.fpoly_asm_springboot.entity.User;
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.ProductRepository;
-import com.springboot.asm.fpoly_asm_springboot.repositories.primary.UserRepository;
+import com.springboot.asm.fpoly_asm_springboot.repository.primary.UserRepository;
 import com.springboot.asm.fpoly_asm_springboot.service.ProductService;
 import com.springboot.asm.fpoly_asm_springboot.util.PageUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
