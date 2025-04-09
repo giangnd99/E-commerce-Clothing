@@ -63,10 +63,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 
-        var user = userRepository.findByEmail(
-                        authenticationRequest
-                                .getEmail())
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        var user = userRepository.findByEmail(authenticationRequest.getEmail()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
 
         boolean authenticated = passwordEncoder.matches(authenticationRequest.getPassword(), user.getPassword());
@@ -78,26 +75,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         var token = generateToken(user);
 
-        return AuthenticationResponse.builder().
-                token(token).
-                authenticated(true).
-                build();
+        return AuthenticationResponse.builder().token(token).authenticated(true).build();
     }
 
     @Override
     public String generateToken(User user) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
-        JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder().
-                subject(user.getEmail()).
-                issuer("poly.com").
-                issueTime(new Date()).
-                expirationTime(new Date(
-                        Instant.now()
-                                .plus(VALID_DURATION, ChronoUnit.HOURS)
-                                .toEpochMilli())).
-                claim("scope", buildScope(user)).
-                build();
+        JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder().subject(user.getEmail()).issuer("poly.com").issueTime(new Date()).expirationTime(new Date(Instant.now().plus(VALID_DURATION, ChronoUnit.HOURS).toEpochMilli())).claim("scope", buildScope(user)).build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
 
@@ -142,11 +127,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
             Date expiryTime = signToken.getJWTClaimsSet().getExpirationTime();
 
-            InvalidatedToken invalidatedToken =
-                    InvalidatedToken.builder()
-                            .id(request.getToken())
-                            .expiryTime(expiryTime)
-                            .build();
+            InvalidatedToken invalidatedToken = InvalidatedToken.builder().id(request.getToken()).expiryTime(expiryTime).build();
 
             invalidatedTokenRepository.save(invalidatedToken);
 
@@ -163,14 +144,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         SignedJWT signedJWT = SignedJWT.parse(token);
 
-        Date expiryTime = (isRefresh)
-                ? new Date(signedJWT
-                .getJWTClaimsSet()
-                .getIssueTime()
-                .toInstant()
-                .plus(REFRESHABLE_DURATION, ChronoUnit.SECONDS)
-                .toEpochMilli())
-                : signedJWT.getJWTClaimsSet().getExpirationTime();
+        Date expiryTime = (isRefresh) ? new Date(signedJWT.getJWTClaimsSet().getIssueTime().toInstant().plus(REFRESHABLE_DURATION, ChronoUnit.SECONDS).toEpochMilli()) : signedJWT.getJWTClaimsSet().getExpirationTime();
 
         var verified = signedJWT.verify(verifier);
 
@@ -186,9 +160,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         var expiryTime = signedJWT.getJWTClaimsSet().getExpirationTime();
 
-        InvalidatedToken invalidatedToken = InvalidatedToken.builder().
-                expiryTime(expiryTime).
-                build();
+        InvalidatedToken invalidatedToken = InvalidatedToken.builder().expiryTime(expiryTime).build();
 
         invalidatedTokenRepository.save(invalidatedToken);
 
@@ -198,10 +170,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         var token = generateToken(user);
 
-        return AuthenticationResponse.builder().
-                token(token).
-                authenticated(true).
-                build();
+        return AuthenticationResponse.builder().token(token).authenticated(true).build();
     }
 
 
@@ -221,29 +190,22 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public UserGGResponse getOrCreateUser(OutboundUserResponse user) {
 
-        User userOauth2 = userRepository.findByEmail(user.getEmail())
-                .orElseGet(() -> {
+        User userOauth2 = userRepository.findByEmail(user.getEmail()).orElseGet(() -> {
 
-                    User newUser = new User();
+            User newUser = new User();
 
-                    newUser.setEmail(user.getEmail());
+            newUser.setEmail(user.getEmail());
 
-                    newUser.setPassword("");
+            newUser.setPassword(user.getEmail());
 
-                    newUser.setRole(Role.USER);
+            newUser.setRole(Role.USER);
 
-                    newUser.setAvatar(user.getPicture());
+            newUser.setAvatar(user.getPicture());
 
-                    return userRepository.save(newUser);
-                });
+            return userRepository.save(newUser);
+        });
 
-        UserGGResponse userResponse = UserGGResponse.builder()
-                .email(userOauth2.getEmail())
-                .avatar(userOauth2.getAvatar())
-                .role(userOauth2.getRole())
-                .fullName(userOauth2.getFullName())
-                .id(userOauth2.getId())
-                .build();
+        UserGGResponse userResponse = UserGGResponse.builder().email(userOauth2.getEmail()).avatar(userOauth2.getAvatar()).role(userOauth2.getRole()).fullName(userOauth2.getFullName()).id(userOauth2.getId()).build();
 
         userResponse.setToken(generateToken(userOauth2));
 
@@ -252,18 +214,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public User getOrCreateUser(String email) {
-        return userRepository.findByEmail(email)
-                .orElseGet(() -> {
+        return userRepository.findByEmail(email).orElseGet(() -> {
 
-                    User newUser = new User();
+            User newUser = new User();
 
-                    newUser.setEmail(email);
+            newUser.setEmail(email);
 
-                    newUser.setPassword("");
+            newUser.setPassword("");
 
-                    newUser.setRole(Role.USER);
+            newUser.setRole(Role.USER);
 
-                    return userRepository.save(newUser);
-                });
+            return userRepository.save(newUser);
+        });
     }
 }

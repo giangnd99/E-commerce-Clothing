@@ -205,4 +205,44 @@ public class ExcelHelper {
         }
         return dataMap;
     }
+
+    public static Map<String, String[]> readDataSignInFromInputStream(InputStream is, String sheetName) throws IOException {
+        Map<String, String[]> dataMap = new LinkedHashMap<>();
+        try (XSSFWorkbook workbook = new XSSFWorkbook(is)) {
+            XSSFSheet sheet = workbook.getSheet(sheetName);
+            if (sheet == null) {
+                System.out.println("Không tìm thấy sheet: " + sheetName);
+                return dataMap;
+            }
+            DataFormatter formatter = new DataFormatter();
+            for (Row row : sheet) {
+                if (row.getRowNum() < 1) continue;
+
+                String key = formatter.formatCellValue(row.getCell(0));
+                String description = formatter.formatCellValue(row.getCell(1));
+                String email = formatter.formatCellValue(row.getCell(2));
+                String password = formatter.formatCellValue(row.getCell(3));
+                String firstname = formatter.formatCellValue(row.getCell(4));
+                String lastname = formatter.formatCellValue(row.getCell(5));
+                String gender = formatter.formatCellValue(row.getCell(6));
+                String birthday = formatter.formatCellValue(row.getCell(7));
+                String phone = formatter.formatCellValue(row.getCell(8));
+                String expected = formatter.formatCellValue(row.getCell(9));
+
+                dataMap.put(key, new String[]{
+                        description,
+                        email,
+                        password,
+                        firstname,
+                        lastname,
+                        gender,
+                        birthday,
+                        phone,
+                        gender,
+                        expected
+                });
+            }
+        }
+        return dataMap;
+    }
 }

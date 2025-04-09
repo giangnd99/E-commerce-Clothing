@@ -15,7 +15,8 @@ public class FilePathTest {
 
     // Đường dẫn file Excel kết quả test
     public static final String EXCEL_FILE_PATH = TEST_RESULT_FOLDER + File.separator + "RESULT_TEST_USER_DAO.xlsx";
-    public static final String EXCEL_FILE_PATH_UI = TEST_RESULT_FOLDER + File.separator + "RESULT_TEST_LOGIN.xlsx";
+    public static final String EXCEL_FILE_PATH_UI_LOGIN = TEST_RESULT_FOLDER + File.separator + "RESULT_TEST_LOGIN.xlsx";
+    public static final String EXCEL_FILE_PATH_UI_REGISTER = TEST_RESULT_FOLDER + File.separator + "RESULT_TEST_SIGN_IN.xlsx";
 
 
     // Thư mục chứa ảnh test
@@ -65,6 +66,18 @@ public class FilePathTest {
             }
 
             return ExcelHelper.readDataLoginFromInputStream(is, sheetName);
+        }
+    }
+    public static Map<String, String[]> readSignInTestData(String fileName, String sheetName) throws IOException {
+        String resourcePath = EXCEL_RESOURCE_PATH + fileName;
+
+        // Dùng ClassLoader để đọc file từ resources
+        try (InputStream is = FilePathTest.class.getClassLoader().getResourceAsStream(resourcePath)) {
+            if (is == null) {
+                throw new IOException("Không tìm thấy file: " + resourcePath);
+            }
+
+            return ExcelHelper.readDataSignInFromInputStream(is, sheetName);
         }
     }
 }

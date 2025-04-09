@@ -89,7 +89,7 @@ public class LoginTest {
 
     @AfterClass
     public void tearDown() throws IOException {
-        excelHelper.writeToFile(FilePathTest.EXCEL_FILE_PATH_UI);
+        excelHelper.writeToFile(FilePathTest.EXCEL_FILE_PATH_UI_LOGIN);
         if (driver != null) {
             driver.quit();
         }

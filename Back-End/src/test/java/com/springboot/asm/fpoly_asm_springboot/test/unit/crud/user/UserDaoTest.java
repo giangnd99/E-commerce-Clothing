@@ -3,6 +3,7 @@ package com.springboot.asm.fpoly_asm_springboot.test.unit.crud.user;
 import com.springboot.asm.fpoly_asm_springboot.FpolyAsmSpringbootApplication;
 import com.springboot.asm.fpoly_asm_springboot.base.ExcelHelper;
 import com.springboot.asm.fpoly_asm_springboot.base.FilePathTest;
+import com.springboot.asm.fpoly_asm_springboot.base.UserRepoClearHelper;
 import com.springboot.asm.fpoly_asm_springboot.entity.User;
 import com.springboot.asm.fpoly_asm_springboot.repository.primary.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserRepoClearHelper userRepoClearHelper;
 
     private SoftAssert softAssert;
     private ExcelHelper excelHelper;
@@ -184,19 +187,8 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
             excelHelper.addRow(result);
         }
         excelHelper.writeToFile(FilePathTest.EXCEL_FILE_PATH);
-        userRepository.deleteAll();
-        resetUserAutoIncrementId();
+        userRepoClearHelper.clearAllUsersAndResetAutoIncrement();
         softAssert.assertAll();
     }
 
-
-    private void resetUserAutoIncrementId() {
-        try {
-
-            userRepository.getEntityManager().createNativeQuery("ALTER TABLE users AUTO_INCREMENT = 1")
-                    .executeUpdate();
-        } catch (Exception e) {
-            System.err.println("Không thể reset auto-increment ID: " + e.getMessage());
-        }
-    }
 }

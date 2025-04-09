@@ -6,9 +6,7 @@ import java.time.Duration;
 
 import javax.imageio.ImageIO;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.ashot.AShot;
@@ -40,6 +38,16 @@ public class SeleniumHelper {
 
     public String getText(By locator) {
         return findElement(locator).getText();
+    }
+
+    public boolean isElementVisible(By locator, int timeoutInSeconds) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return true;
+        } catch (TimeoutException | NoSuchElementException e) {
+            return false;
+        }
     }
 
     /**
