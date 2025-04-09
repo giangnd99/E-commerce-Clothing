@@ -32,7 +32,6 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
     private final GoogleService googleService;
-    private final UserService userService;
 
     @PostMapping("/token")
     public ApiResponse<AuthenticationResponse> authenticationResponseApiResponse(@RequestBody AuthenticationRequest request) {

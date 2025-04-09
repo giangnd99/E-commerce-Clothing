@@ -45,7 +45,6 @@ public class GhnServiceImpl implements GhnService {
 
         String jsonResponse = getWebClientResponse(GHN.API_URL_PROVINCE);
 
-        // Trích xuất danh sách province từ "data"
         JsonNode dataNode = getNodeData(jsonResponse, "data");
 
         return StreamSupport.stream(dataNode.spliterator(), false)

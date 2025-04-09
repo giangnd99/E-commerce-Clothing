@@ -35,7 +35,7 @@ public class GoogleServiceImpl implements GoogleService {
     }
 
     @Override
-    public UserGGResponse getUserResponse(String code) throws Exception {
+    public UserGGResponse getUserResponse(String code)  {
         var accessToken = getAccessToken(code);
         OutboundUserResponse userInfo = outboundUserClient.getUserInfo("json", accessToken);
 

@@ -1,6 +1,10 @@
 package com.springboot.asm.fpoly_asm_springboot.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -18,8 +22,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Email not null")
+    @Email(message = "Email invalid")
     private String email;
 
+    @NotBlank(message = "Password not null")
     private String password;
 
     private String fullName;
@@ -32,8 +39,7 @@ public class User {
 
     private Boolean gender;
 
+    @NotNull(message = "Role can't null")
     private Boolean role;
 
-    public User(int id, String image, LocalDate of, String mail, String nguyễnBìnhMinh, int i, String number, String s, int i1) {
-    }
 }

@@ -1,6 +1,7 @@
 package com.springboot.asm.fpoly_asm_springboot.repository.primary;
 
 import com.springboot.asm.fpoly_asm_springboot.entity.User;
+import com.springboot.asm.fpoly_asm_springboot.repository.custom.CustomUserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 @Repository
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer>, CustomUserRepository {
 
     boolean existsByEmail(String email);
 

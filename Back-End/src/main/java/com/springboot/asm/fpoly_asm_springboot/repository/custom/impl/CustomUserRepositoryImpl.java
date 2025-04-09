@@ -6,7 +6,7 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CustomUserRepositoryIml implements CustomUserRepository {
+public class CustomUserRepositoryImpl implements CustomUserRepository {
 
     @PersistenceContext
     private EntityManager entityManager;

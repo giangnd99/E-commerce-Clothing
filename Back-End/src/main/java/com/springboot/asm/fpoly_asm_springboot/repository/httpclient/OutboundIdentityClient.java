@@ -11,4 +11,5 @@ import org.springframework.web.bind.annotation.PostMapping;
 public interface OutboundIdentityClient {
     @PostMapping(value = "/token" ,produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ExchangeTokenResonse exchangeToken(@QueryMap ExchangeTokenRequest request);
+
 }
